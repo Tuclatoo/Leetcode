@@ -1,0 +1,28 @@
+class Solution
+{
+    public boolean isAnagram(String s, String t)
+    {
+        HashMap<Character, Integer> frequency1 = new HashMap<Character, Integer>();
+        HashMap<Character, Integer> frequency2 = new HashMap<Character, Integer>();
+        if(s.length() != t.length())
+        {
+            return false;
+        }
+
+        for(int i = 0; i < s.length(); i++)
+        {
+            frequency1.put(s.charAt(i), frequency1.getOrDefault(s.charAt(i), 0) + 1);
+            frequency2.put(t.charAt(i), frequency2.getOrDefault(t.charAt(i), 0) + 1);
+        }
+
+        if(frequency1.equals(frequency2))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+}

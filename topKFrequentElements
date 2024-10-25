@@ -1,0 +1,47 @@
+class Solution
+{
+    public int[] topKFrequent(int[] nums, int k)
+    {
+        // Create a hashmap mapping an integer to it's frequency.
+        HashMap<Integer, Integer> frequency = new HashMap<Integer, Integer>();
+        for(int i = 0; i < nums.length; i++)
+        {
+            frequency.put(nums[i], frequency.getOrDefault(nums[i], 0) + 1);
+        }
+
+        /**  
+        Create an array of lists the size of the input array + 1
+        Loop through the frequency hashmap and store the key in the list 
+        at the index of the array corresponding to it's frequency.
+
+        For example: If the input array had both 2 and 6 appear 4 times the entry at index 4 would be {2, 6}
+        **/
+        List<Integer>[] bucket = new List[nums.length + 1];
+        int freq;
+        for(int key: frequency.keySet())
+        {
+            freq = frequency.get(key);
+            if(bucket[freq] == null)
+            {
+                bucket[freq] = new ArrayList<>();
+            }
+            bucket[freq].add(key);
+        }
+        
+        // Finally loop through the array backwards until your output array of size k is fully populated  
+        int[] ans = new int[k];
+        int pos = 0;
+        for(int i = bucket.length - 1; i >= 0; i--)
+        {
+            if(bucket[i] != null)
+            {
+                for(int j = 0; j < bucket[i].size() && pos < k; j++)
+                {
+                    ans[pos] = bucket[i].get(j);
+                    pos++;
+                }
+            }
+        }
+        return ans;
+    }
+}
